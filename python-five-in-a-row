@@ -1,0 +1,113 @@
+checkerboard = []
+i = 0
+for i in range(10):
+    row = []
+    j = 0
+    for j in range(10):
+        row.append(".")
+    checkerboard.append(row)
+    #棋盘设计10*10
+    #接下来是打印棋盘
+
+def print_board():
+  print(" ",end=" ")
+  m = 0
+  for m in range(10):
+     print(m, end=" ")
+  print()
+  n = 1
+  l = 1
+  for n in range(10):
+      print(n,end=" ")
+      for l in range(10):
+         print(checkerboard[n][l],end=" ")
+      print()
+
+def count_right(x,y,player):
+        count = 1
+        j = 0
+        while j < 10:
+          if checkerboard[x][y] == checkerboard[x+j][y] == player:
+            count += 1
+            j += 1
+          else:
+              return count
+    #设置右边计数器函数，用来计数棋子的数量
+def count_left(x,y,player):
+        count = 1
+        j = 0
+        while j < 10:
+          if checkerboard[x][y] == checkerboard[x-j][y] == player:
+            count += 1
+            j += 1
+          else:
+            return count
+    #设置左边计数器函数，用来计数棋子的数量
+def right_diagonal(x,y,player):
+        count = 1
+        j = 0
+        while j < 10:
+          if checkerboard[x][y] == checkerboard[x+j][y+j] == player :
+            count += 1
+            j += 1
+          elif checkerboard[x][y] == checkerboard[x-j][y-j] == player :
+            count += 1
+            j += 1
+          else:
+            return count
+    # 设置右对角线边计数器函数，用来计数棋子的数量
+def left_diagonal(x,y,player):
+        count = 1
+        j = 0
+        while j < 10:
+          if checkerboard[x][y] == checkerboard[x-j][y+j] == player :
+            count += 1
+            j += 1
+          elif checkerboard[x][y] == checkerboard[x+j][y-j] == player :
+            count += 1
+            j += 1
+          else:
+            return count
+    # 设置左对角线边计数器函数，用来计数棋子的数量
+def upright (x, y, player):
+        count = 1
+        j = 0
+        while j < 10 :
+          if checkerboard[x][y] == checkerboard[x][y+j] == player:
+            count += 1
+            j += 1
+          elif checkerboard[x][y] == checkerboard[x][y-j] == player:
+            count += 1
+            j += 1
+          else:
+            return count
+
+
+win = False
+player  = 1
+while not win:
+  print_board()
+
+  x = int(input("请输入棋子横坐标:"))
+  y = int(input("请输入棋子纵坐标:"))
+  if checkerboard[x][y] == "." :
+    checkerboard[x][y] = str(player)
+  else:
+      print("此处已经有棋子！")
+      continue
+  #落子的控制
+  R = count_right(x,y,player)
+  L = count_left(x,y,player)
+  RD = right_diagonal(x,y,player)
+  LD = left_diagonal(x,y,player)
+  up = upright(x,y,player)
+
+  if R>=5 or L>=5 or RD>=5 or LD>=5 or up>=5:
+      win = True
+      print("恭喜{}玩家胜利！".format(player))
+
+  if player == 1:
+        player = 2
+  else:player = 1
+
+
